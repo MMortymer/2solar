@@ -7,5 +7,10 @@ use Illuminate\Database\Eloquent\Model;
 
 class Product extends Model
 {
-    use HasFactory;
+    protected $fillable = ['name', 'stock'];
+
+    public function systems()
+    {
+        return $this->belongsToMany(System::class)->withPivot('quantity');
+    }
 }

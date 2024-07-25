@@ -7,5 +7,10 @@ use Illuminate\Database\Eloquent\Model;
 
 class Order extends Model
 {
-    use HasFactory;
+    protected $fillable = ['quantity'];
+
+    public function systems()
+    {
+        return $this->belongsToMany(System::class)->withPivot('quantity');
+    }
 }
