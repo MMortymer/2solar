@@ -57,6 +57,14 @@ class OrderController extends Controller
                     $product->save();
 
                     // TODO: Check if stock is below 20% and send email if not already sent
+                    if ($product->stock < ($product->initial_stock * 0.2) && !$product->low_stock_email_sent) {
+                        // Send email notification
+                        Mail::to('supplies@example.com')->send(new ProductLowStockNotification($product));
+
+                        // Set flag to indicate email has been sent
+                        $product->low_stock_email_sent = true;
+                        $product->save();
+                    }
                 }
             }
 
