@@ -15,6 +15,8 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->integer('stock');
+            $table->integer('initial_stock');
+            $table->boolean('low_stock_email_sent')->default(false);
             $table->timestamps();
         });
     }
