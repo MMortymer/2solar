@@ -9,6 +9,8 @@ class Order extends Model
 {
     use HasFactory;
 
+    protected $fillable = ['system_id', 'quantity'];
+
     public function systems()
     {
         return $this->belongsToMany(System::class)->withPivot('quantity');
