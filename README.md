@@ -127,7 +127,7 @@ php artisan test
 
 ## Configuration
 
--   Mail Configuration: Set up email settings in the .env file for production use.
+-   Mail Configuration: Set up email settings in the .env file for local emails testing.
 
 ```
 MAIL_MAILER=log
