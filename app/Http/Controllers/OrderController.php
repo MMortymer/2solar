@@ -25,6 +25,19 @@ class OrderController extends Controller
         DB::beginTransaction();
 
         try {
+            // Check if there is enough stock for each product in the order
+            foreach ($request->items as $item) {
+                $system = System::findOrFail($item['system_id']);
+
+                foreach ($system->products as $product) {
+                    $quantityNeeded = $item['quantity'] * $product->pivot->quantity;
+
+                    if ($product->stock < $quantityNeeded) {
+                        throw new \Exception('Insufficient stock for product: ' . $product->name);
+                    }
+                }
+            }
+
             // Process each item in the order
             foreach ($request->items as $item) {
                 $system = System::findOrFail($item['system_id']);
